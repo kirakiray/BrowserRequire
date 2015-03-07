@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>09加载中监控</title>
+    <script src="../src/br.js"></script>
+    <script src="../src/br-ieload.js"></script>
+    <style>
+        #outer {
+            min-height: 100px;
+            margin: 40px;
+            padding: 10px;
+            line-height: 1.6em;
+            font-size: 16px;
+            color: #222;
+            border: #77b3de solid 1px;
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer"></div>
+</body>
+<script>
+    require.config({
+        baseUrl: 'js',
+        paths: {
+            jq: 'jquery-1.9.1'
+        }
+    });
+
+    var r1 = require('jq');
+    r1.ready = function () {
+        $('#outer')[0].innerHTML += '<span style="color:green;">jq succeed!</span><br />';
+    };
+
+    var r2 = r1.require('file01', 'file02', 'file03', 'file04');
+    r2.ready = function () {
+        $('#outer')[0].innerHTML += '<span style="color:green;">file01 file02 file03 file04 succeed!</span><br />';
+    };
+
+    /*
+        加载中状态；
+        由于r2组有4个文件要加载，每加载完一个文件，就会触发一次loading方法；
+        运行完文件内的代码才会执行loading方法；
+        loading方法的arguments[0]，包含有加载完成文件的各种信息；
+        有loading可以很方便的做成进度条的形式展示给用户；
+    */
+    r2.loading = function (status) {
+        var showText = "";
+
+        //已加载完成的目录
+        showText += "<span style='color:#72c380;'>fileName:</span>" + status.uri + "<br />";
+
+        //加载完成文件在组中的次序
+        showText += "<span style='color:#72c380;'>index:</span>" + status.index + "<br />";
+
+        //加载状态（finish是首次加载完毕，loaded从缓存加载）
+        showText += "<span style='color:#72c380;'>type:</span>" + status.type + "<br />";
+
+        //加载成功的文件
+        showText += "<span style='color:#72c380;'>succeed Count:</span>" + status.succeedPaths.length + "<br />";
+
+        //加载错误的目录
+        showText += "<span style='color:#72c380;'>error Paths Count:</span>" + status.errorPaths.length + "<br />";
+
+        //需要加载的所有文件
+        showText += "<span style='color:#72c380;'>all Count:</span>" + status.totalPaths.length + "<br />";
+
+        console.log(status);
+
+        //输出
+        $('#outer')[0].innerHTML += showText + "<br /><br />";
+    };
+</script>
+
+</html>

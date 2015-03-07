@@ -1,0 +1,1 @@
+document.getElementById('outer').innerHTML += "file01 yes!!<br />";

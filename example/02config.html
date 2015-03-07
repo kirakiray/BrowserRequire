@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>02基本配置函数</title>
+    <script src="../src/br.js"></script>
+    <script src="../src/br-ieload.js"></script>
+    <style>
+        #outer {
+            min-height: 100px;
+            margin: 40px;
+            padding: 10px;
+            line-height: 1.6em;
+            font-size: 16px;
+            color: #222;
+            border: #77b3de solid 1px;
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer"></div>
+</body>
+<script>
+    require.config({
+        //设置路径根目录，设置后require入的地址都会基于根目录
+        baseUrl: 'js',
+        /*
+            设置快捷路径，方便后面要多次引用名字长的文件或模块；
+            注册的快捷路径也会基于baseUrl引用
+        */
+        paths: {
+            //没有上面的baseUrl的话是'js/jquery-1.9.1'
+            jq: 'http://libs.baidu.com/jquery/1.9.1/jquery.js'
+        }
+    });
+
+    require('jq').ready = function () {
+        $('#outer').text('jquery succeed 2!');
+    };
+</script>
+
+</html>

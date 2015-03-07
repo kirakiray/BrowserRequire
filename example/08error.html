@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>09资源错误</title>
+    <script src="../src/br.js"></script>
+    <script src="../src/br-ieload.js"></script>
+    <style>
+        #outer {
+            min-height: 100px;
+            margin: 40px;
+            padding: 10px;
+            line-height: 1.6em;
+            font-size: 16px;
+            color: #222;
+            border: #77b3de solid 1px;
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer"></div>
+</body>
+<script>
+    require.config({
+        baseUrl: 'js',
+        paths: {
+            jq: 'jquery-1.9.1'
+        }
+    });
+
+    /*
+        同时加载file01、file02和jquery三个文件;
+        由于是异步加载，加载完成次序是不确定的；
+        当三个文件都加载完成时，会执行ready方法；
+    */
+    var r1 = require('file01', 'file02', 'file100', 'jq');
+
+    //加载成功执行ready方法
+    r1.ready = function () {
+        $('#outer')[0].innerHTML += '<span style="color:green;">all succeed!</span>';
+    };
+
+    //加载错误执行error方法
+    r1.error = function (status) {
+        console.log(status);
+        var outerText = '<span style="color:red;">error!!!!!</span><br />';
+
+        //加载成功的资源
+        outerText += "<br />succeed Count:" + status.succeedPaths.length;
+
+        //加载错误的资源
+        outerText += "<br />error Count:" + status.errorPaths.length;
+
+        //需要加载的所有资源
+        outerText += "<br />all Count:" + status.totalPaths.length;
+
+        $('#outer')[0].innerHTML = outerText;
+    };
+
+    //也会运行require.br上的error方法；
+    require.br.error = function (status) {
+        $('#outer')[0].innerHTML += '<br /><br />requre.br.error';
+    };
+</script>
+
+</html>

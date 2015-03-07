@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>01加载文件</title>
+    <script src="../src/br.js"></script>
+    <script src="../src/br-ieload.js"></script>
+    <style>
+        #outer {
+            min-height: 100px;
+            margin: 40px;
+            padding: 10px;
+            line-height: 1.6em;
+            font-size: 16px;
+            color: #222;
+            border: #77b3de solid 1px;
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer"></div>
+</body>
+<script>
+    /*
+        引入jquery文件；
+        可以不用带.js后缀；
+        当文件加载完后会执行ready函数；
+    */
+    var r1 = require('js/jquery-1.9.1');
+    r1.ready = function () {
+        $('#outer').text('jquery succeed!');
+    };
+
+    /*
+        当然，为了渐变你也可以这样写；
+        require('jquery-1.9.1').ready = function () {
+            $('#outer').text('jquery succeed!');
+        };
+        
+        如果觉得这样加载文件复杂，别急，后面会介绍br.js的sugar插件，可以像使用jQuery那样方便；
+    */
+</script>
+
+</html>

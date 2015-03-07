@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>11模块依赖</title>
+    <script src="../src/br.js"></script>
+    <script src="../src/br-ieload.js"></script>
+    <style>
+        #outer {
+            min-height: 100px;
+            margin: 40px;
+            padding: 10px;
+            line-height: 1.6em;
+            font-size: 16px;
+            color: #222;
+            border: #77b3de solid 1px;
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer"></div>
+</body>
+<script>
+    require.config({
+        baseUrl: 'js'
+    });
+
+    /*
+        引入模块的方法和引入js文件一样，但是arguments是模块定义的数据；
+    */
+    require('module02').ready = function (m2) {
+        console.log(m2);
+        document.getElementById('outer').innerHTML += m2.val;
+    };
+</script>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>07缓存机制</title>
+    <script src="../src/br.js"></script>
+    <script src="../src/br-ieload.js"></script>
+    <style>
+        #outer {
+            min-height: 100px;
+            margin: 40px;
+            padding: 10px;
+            line-height: 1.6em;
+            font-size: 16px;
+            color: #222;
+            border: #77b3de solid 1px;
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer"></div>
+</body>
+<script>
+    require.config({
+        baseUrl: 'js',
+        paths: {
+            jq: 'jquery-1.9.1'
+        }
+    });
+
+    /*
+        require多次引入已经引用过的资源，只会执行一次；
+        第一次以后的require都不会有任何作用，意义在于确保该资源已经加载过；
+    */
+    //加载完jQuery后，载入 file03
+    require('jq').require('file03').ready = function () {
+        $('#outer')[0].innerHTML += '<span style="color:green;">file03 succeed!</span><br />';
+        /*
+            在做一次操作，加载完jQuery后载入file03;
+            由于jQuery已经加载过，所以会直接跳过加载，执行下一个任务加载file03，
+            然后由于file03也已经加载过，也会跳过加载直接执行下一个任务，执行ready方法；
+            意义在多人合作情况下，对文件依赖不需要提前引入，可以按需引入加载js文件，
+            当未引入过该资源会加载该js文件，有使用过就不会做任何操作执行ready方法；
+            brjs会处理好引入状态的判断，即时是同一线程引入同样资源，也不会造成加载资源重复的情况；
+        */
+        require('jq').require('file03').ready = function () {
+            $('#outer')[0].innerHTML += '<span style="color:blue;">file03 succeed!!!!!!!!!!!!!!!!!!!!!!!!!</span><br />';
+        };
+    };
+</script>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>06混合加载文件用例</title>
+    <script src="../src/br.js"></script>
+    <script src="../src/br-ieload.js"></script>
+    <style>
+        #outer {
+            min-height: 100px;
+            margin: 40px;
+            padding: 10px;
+            line-height: 1.6em;
+            font-size: 16px;
+            color: #222;
+            border: #77b3de solid 1px;
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer"></div>
+</body>
+<script>
+    require.config({
+        baseUrl: 'js',
+        paths: {
+            jq: 'jquery-1.9.1'
+        }
+    });
+
+    //先载入jQuery文件
+    var r1 = require('jq');
+    r1.ready = function () {
+        $('#outer')[0].innerHTML += '<span style="color:green;">jQuery succeed!</span><br />';
+    };
+
+    /*
+        载入jQuery文件后，并行载入file01 file02文件，但是归属不同的组
+        file01或file02的载入顺序不一定，因为是异步加载
+    */
+    var r2_1 = r1.require('file01');
+    r2_1.ready = function () {
+        $('#outer')[0].innerHTML += '<span style="color:green;">file01 succeed!</span><br />';
+    };
+
+    var r2_2 = r1.require('file02');
+    r2_2.ready = function () {
+        $('#outer')[0].innerHTML += '<span style="color:green;">file02 succeed!</span><br />';
+    };
+
+    /*
+        载入完file01文件后，并行载入file03 file04文件，归属同一组
+    */
+    var r3 = r2_1.require('file03', 'file04');
+    r3.ready = function () {
+        $('#outer')[0].innerHTML += '<span style="color:green;">file03 file04 succeed!</span><br />';
+    };
+</script>
+
+</html>

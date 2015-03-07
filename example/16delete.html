@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>16模块删除</title>
+    <script src="../src/br.js"></script>
+    <script src="../src/br-ieload.js"></script>
+    <style>
+        #outer {
+            min-height: 100px;
+            margin: 40px;
+            padding: 10px;
+            line-height: 1.6em;
+            font-size: 16px;
+            color: #222;
+            border: #77b3de solid 1px;
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer"></div>
+</body>
+<script>
+    require.config({
+        baseUrl: 'js',
+        paths: {
+            jq: 'jquery-1.9.1'
+        }
+    });
+
+    /*
+        has方法可以查看模块或者文件是否被加载；
+    */
+    //查看某模块是否加载
+    console.log("first: " + require.has('module01'));
+
+    require('module01').ready = function (m1) {
+        //查看是否被加载过
+        console.log("second: " + require.has('module01'));
+
+        //删除模块
+        /*
+            destory是删除模块和加载信息‘
+            删除后重新require该模块，会重新从服务器加载该文件；
+            由于define模块定义函数可以直接定义字符串，JSONP变得很便利；
+        */
+        require.destory('module01');
+
+        //查看是否被加载过
+        console.log("third: " + require.has('module01'));
+    };
+</script>
+
+</html>

@@ -1,0 +1,1 @@
+document.getElementById('outer').innerHTML += "file02 succeed!!!!<br />";
