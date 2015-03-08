@@ -8,6 +8,16 @@ BrowserRequire是给浏览器使用的模块化框架，并且提供灵活加载
 
 中文使用指南：[点击进入!](https://github.com/kirakiray/BrowserRequire/wiki/中文使用指南)
 
+###目录介绍
+
+dist————BrowserRequire框架压缩代码
+
+example————示范案例
+
+src————BrowserRequire源代码
+
+要使用BrowserRequire只需要下载dist内的文件即可。
+
 ###编写目的
 
 在过去的Web开发中，遇到现有的模块化框架无法满足的需求，故开发一款更符合浏览器使用的模块加载器；
