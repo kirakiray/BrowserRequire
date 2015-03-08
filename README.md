@@ -26,4 +26,4 @@ src————BrowserRequire源代码
 
 ###优缺点
 
-参考完使用文档的最后，有优缺点说明，或者按这里跳转查看。
+参考完使用文档的最后，有优缺点说明，或者按[这里跳转查看](https://github.com/kirakiray/BrowserRequire/wiki/中文使用指南：模块化#%E7%BB%93%E5%B0%BE)。
