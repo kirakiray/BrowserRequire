@@ -6,7 +6,7 @@ English use guide : [click me!](https://github.com/kirakiray/BrowserRequire/wiki
 
 BrowserRequire是给浏览器使用的模块化框架，并且提供灵活加载js文件（非模块化文件）的功能。
 
-中文使用指南：[点击进入!](https://github.com/kirakiray/BrowserRequire/wiki/中文使用指南)
+中文使用指南：[点击进入!](https://github.com/kirakiray/BrowserRequire/wiki/中文使用指南1：加载文件)
 
 ###目录介绍
 
@@ -26,4 +26,4 @@ src————BrowserRequire源代码
 
 ###优缺点
 
-参考完使用文档的最后，有优缺点说明，或者按[这里跳转查看](https://github.com/kirakiray/BrowserRequire/wiki/中文使用指南：模块化#%E7%BB%93%E5%B0%BE)。
+参考完[使用文档](https://github.com/kirakiray/BrowserRequire/wiki/中文使用指南1：加载文件)的最后，有优缺点说明，或者按[这里跳转查看](https://github.com/kirakiray/BrowserRequire/wiki/中文使用指南2：模块化#%E7%BB%93%E5%B0%BE)。
