@@ -10,7 +10,7 @@ BrowserRequire是给浏览器使用的模块化框架，并且提供灵活加载
 
 ###目录介绍
 
-dist————BrowserRequire框架压缩代码
+dist————BrowserRequire框架压缩文件
 
 example————示范案例
 
@@ -22,7 +22,11 @@ src————BrowserRequire源代码
 
 在过去的Web开发中，遇到现有的模块化框架无法满足的需求，故开发一款更符合浏览器使用的模块加载器；
 
-编写BrowserRequire目的不在于统一前后端模块使用，而是做一款更适合Web前端开发需求的模块化框架。
+编写BrowserRequire目的不在于统一前后端模块使用，而是做一款更适合Web前端开发需求的模块化框架；
+
+更好的处理了模块与非模块间的使用；
+
+更像是LABjs+requireJS的结合增强版，但打包源文件只有7kb左右；
 
 ###已知兼容性
 
