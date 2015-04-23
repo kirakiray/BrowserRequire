@@ -87,6 +87,16 @@
         */
         concatJS = function (value) {
             return value.concat('.js');
+        },
+        /*
+            判断对象是否是空对象
+            @param {object} obj 传入的对象
+        */
+        isEmpty = function (obj) {
+            for (var i in obj) {
+                return false;
+            }
+            return true;
         };
 
     //publicClass
@@ -517,10 +527,10 @@
                 loadEvent: loadModuleEvent,
                 //script节点对象
                 script: script
-                //模块
-                //module : undefined
-                //滞后汇总对象
-                //lagGather: new GatherFunction()
+                    //模块
+                    //module : undefined
+                    //滞后汇总对象
+                    //lagGather: new GatherFunction()
             };
             //记录到公用对象
             baseResource.map[uri] = fileMapObj;
@@ -852,15 +862,24 @@
             baseResource.tempM = {
                 //模块的内容
                 main: ""
-                //names: []
+                    //names: []
             };
             //运行define函数会放入临时模块中
             switch (getType(moduleContent)) {
             case "function":
                 //产生一个伪全局兼容对象（用于兼容使用window为全局的插件或组建）
                 var fakeWindow = create(window);
+                //添加exports和module参数
+                var moduleObj = {
+                    exports: {}
+                };
                 //若是函数则执行函数
-                baseResource.tempM.main = moduleContent.call(fakeWindow, R.defindedRequire);
+                var returnVal = moduleContent.call(fakeWindow, R.defindedRequire, moduleObj.exports, moduleObj);
+                if (returnVal) {
+                    baseResource.tempM.main = returnVal;
+                } else {
+                    baseResource.tempM.main = moduleObj.exports;
+                }
                 break;
             default:
                 //其他内容则填充为模块内容
