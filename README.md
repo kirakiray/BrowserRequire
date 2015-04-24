@@ -26,11 +26,11 @@ src————BrowserRequire源代码
 
 更好的处理了模块与非模块间的使用；
 
-更像是LABjs+requireJS的结合增强版，但打包源文件只有7kb左右；
+更像是LABjs+requireJS+seajs的结合增强版，集合了三家所长，剔除了不必要的特性，补充了互相的短板，打包源文件也只有7kb左右；
 
 ###已知兼容性
 
-IE 5.5+ (添加ieload插件，若不添加则IE10+)
+IE 5.5+ (添加[ieload插件](https://github.com/kirakiray/BrowserRequire-ieload)，若不添加则IE10+)
 
 Opera 10+
 

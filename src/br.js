@@ -444,8 +444,6 @@
             @param {string} uri 当前加载资源的真实uri地址
         */
         setModuleAgent: function (fileMapObj, loadModuleEvent, uri) {
-            //设置资源加载成功
-            fileMapObj.type = 2;
             //start--------以下是模块定义的逻辑----------
             //滞后对象，模块名
             var lagGather = null,
@@ -476,6 +474,8 @@
             //传入滞后函数
             if (lagGather) {
                 lagGather.action = function () {
+                    //设置资源加载成功
+                    fileMapObj.type = 2;
                     //延后的载入临时模块数据
                     fileMapObj.module = tempM.main.exports;
                     //设置模块
@@ -498,6 +498,8 @@
                 R.setModule(tempM.names, fileMapObj.module);
             }
             //end--------以上是模块定义的逻辑----------
+            //设置资源加载成功
+            fileMapObj.type = 2;
             //执行ready事件
             loadModuleEvent.trigger(C_READY, {
                 //刚刚加载完成
@@ -740,6 +742,10 @@
             //带上关联属性
             argEvent._combRequire = combRequire;
             combRequire._argEvent = argEvent;
+            //调试
+            //if (uri.search('screen') > -1) {
+            console.log(combRequire);
+            //}
             //定义加载成功，加载失败和加载中的事件
             argEvent.bind('succeed', function (e) {
                 //start---------模块化相关---------
