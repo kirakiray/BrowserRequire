@@ -1,8 +1,9 @@
-define(function (require, exports) {
+define(function (require, exports, module) {
     var val = "I am Module02";
     //    var reObj = {
     //        val: val
     //    };
+    module.exports.val = val;
 
     /*
         模块依赖其他模块，是用define函数的arguments[0]的require引入依赖；
@@ -10,7 +11,7 @@ define(function (require, exports) {
         所以可以放心的加载其他依赖文件，brjs会处理各种加载情况；
     */
     require('module03').ready = function (m3) {
-        exports.m3 = m3;
+        module.exports.m3 = m3;
     };
     /*
         @return {all}

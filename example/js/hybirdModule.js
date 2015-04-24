@@ -3,6 +3,7 @@ define(function (require, exports, module) {
     /*var reObj = {
         val: val
     }*/
+    exports.val = val;
     /*
         模块依赖可以和非模块化的文件共存；
         同步加载module04和file01，所以顺序不定；

@@ -477,7 +477,7 @@
             if (lagGather) {
                 lagGather.action = function () {
                     //延后的载入临时模块数据
-                    fileMapObj.module = tempM.main;
+                    fileMapObj.module = tempM.main.exports;
                     //设置模块
                     R.setModule(tempM.names, fileMapObj.module);
                     //执行ready事件
@@ -493,7 +493,7 @@
             } else if (tempM) {
                 //无延后的则直接设置模块
                 //载入临时模块数据
-                fileMapObj.module = tempM.main;
+                fileMapObj.module = tempM.main.exports;
                 //设置模块
                 R.setModule(tempM.names, fileMapObj.module);
             }
@@ -861,8 +861,8 @@
             //写入临时模块
             baseResource.tempM = {
                 //模块的内容
-                main: ""
-                    //names: []
+                main: {}
+                //names: []
             };
             //运行define函数会放入临时模块中
             switch (getType(moduleContent)) {
@@ -876,14 +876,14 @@
                 //若是函数则执行函数
                 var returnVal = moduleContent.call(fakeWindow, R.defindedRequire, moduleObj.exports, moduleObj);
                 if (returnVal) {
-                    baseResource.tempM.main = returnVal;
+                    baseResource.tempM.main.exports = returnVal;
                 } else {
-                    baseResource.tempM.main = moduleObj.exports;
+                    baseResource.tempM.main = moduleObj;
                 }
                 break;
             default:
                 //其他内容则填充为模块内容
-                baseResource.tempM.main = moduleContent;
+                baseResource.tempM.main.exports = moduleContent;
             };
             //判断是否有模块名，添加入模块
             baseResource.tempM.names = moduleName;
