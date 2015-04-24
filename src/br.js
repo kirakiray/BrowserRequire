@@ -742,10 +742,6 @@
             //带上关联属性
             argEvent._combRequire = combRequire;
             combRequire._argEvent = argEvent;
-            //调试
-            //if (uri.search('screen') > -1) {
-            console.log(combRequire);
-            //}
             //定义加载成功，加载失败和加载中的事件
             argEvent.bind('succeed', function (e) {
                 //start---------模块化相关---------
