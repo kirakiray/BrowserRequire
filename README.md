@@ -10,13 +10,11 @@ BrowserRequire是给浏览器使用的模块化框架，并且提供灵活加载
 
 ###目录介绍
 
-dist————BrowserRequire框架压缩文件
-
 example————示范案例
 
 src————BrowserRequire源代码
 
-要使用BrowserRequire只需要下载dist内的文件即可。
+要使用BrowserRequire只需下载src目录下的 br.min.js 即可。
 
 ###编写目的
 
