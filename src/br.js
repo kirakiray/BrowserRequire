@@ -116,6 +116,7 @@
         //final列表
         this._final = {};
     };
+    BindEvent.fn = BindEvent.prototype;
     /**
         注册事件方法（此bind事件不会污染注册函数内的this，并且对注册事件和删除事件有规定）；
         若注册的函数返回false则不会跑后续的事件
@@ -123,7 +124,7 @@
         @param {function} fun 定义事件函数
         @param {all} data 注册事件附加的数据
     */
-    BindEvent.prototype.bind = function (eventName, fun, data) {
+    BindEvent.fn.bind = function (eventName, fun, data) {
         //判断是否是同步立即运行的函数
         var atOnceData = this._atOnce[eventName],
             runfun = function () {
@@ -168,7 +169,7 @@
         @param {string} eventName 事件名
         @param {all} data 触发事件绑定的数据
     */
-    BindEvent.prototype.trigger = function (eventName, data) {
+    BindEvent.fn.trigger = function (eventName, data) {
         //获取事件队列
         var eventArr = this._events[eventName] || [];
         //写入当前运行的事件名
@@ -215,7 +216,7 @@
         @param {string} eventName 事件名
         @param {function|null} fun 需要移除相应的函数
     */
-    BindEvent.prototype.unbind = function (eventName, fun) {
+    BindEvent.fn.unbind = function (eventName, fun) {
         //若当前事件正在运行，则不能注册该事件
         if (this._run[eventName]) {
             this._run[eventName] = 0;
@@ -245,7 +246,7 @@
         @param {all} tData 运行时绑定的触发数据
         @param {boolean} 是否要模拟异步运行
     */
-    BindEvent.prototype.setOnce = function (eventName, tData, async) {
+    BindEvent.fn.setOnce = function (eventName, tData, async) {
         this._atOnce[eventName] = {
             //模拟触发数据
             tData: tData,
@@ -260,13 +261,13 @@
         @param {string} eventName 事件名
         @param {function} callback 事件运行完后要执行的函数
     */
-    BindEvent.prototype.last = function (eventName, callback) {
+    BindEvent.fn.last = function (eventName, callback) {
         this._final[eventName] = callback;
     };
     /*
         克隆实例，主实例触发相应bind事件，也会触发克隆实例绑定的事件，但是与主实例相对独立的对象
     */
-    BindEvent.prototype.clone = function () {
+    BindEvent.fn.clone = function () {
         if (!this._clones) {
             this._clones = [];
         }
@@ -318,9 +319,22 @@
         @constructor
     */
     function Require() {};
-    Require.prototype.ready = emptyFun;
-    Require.prototype.error = emptyFun;
-    Require.prototype.loading = emptyFun;
+    Require.fn = Require.prototype;
+    Require.fn.ready = emptyFun;
+    Require.fn.error = emptyFun;
+    Require.fn.loading = emptyFun;
+    Require.fn.sure = function (fun) {
+        this.ready = fun || emptyFun;
+        return this;
+    };
+    Require.fn.go = function (fun) {
+        this.loading = fun || emptyFun;
+        return this;
+    };
+    Require.fn.err = function (fun) {
+        this.error = fun || emptyFun;
+    }
+
 
     /**
         与业务关联的require连带记录器；

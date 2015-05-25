@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>sugar-require</title>
+    <script src="../../src/br.js"></script>
+    <style>
+        #outer {
+            min-height: 100px;
+            margin: 40px;
+            padding: 10px;
+            line-height: 1.6em;
+            font-size: 16px;
+            color: #222;
+            border: #77b3de solid 1px;
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer"></div>
+</body>
+<script>
+    require.config({
+        baseUrl: "../js",
+        paths: {
+            jq: 'jquery-1.9.1'
+        }
+    });
+    require('jquery-1.9.1')
+        .sure(function () {
+            $('#outer').html('jquery载入完毕<br />');
+        })
+        //相对于 ../js 目录
+        .require('../1.2.0/sugar-module')
+        .sure(function (sugarmodule) {
+            console.log(sugarmodule);
+        });
+</script>
+
+</html>
