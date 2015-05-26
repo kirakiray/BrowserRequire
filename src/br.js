@@ -333,6 +333,11 @@
     };
     Require.fn.err = function (fun) {
         this.error = fun || emptyFun;
+        return this;
+    }
+    Require.fn.post = function (data) {
+        this.data = data;
+        return this;
     }
 
 
@@ -464,6 +469,8 @@
                 tempM;
             //判断是否有临时模块
             if (baseResource.tempM) {
+                //执行模块定义
+                R.setTempM(baseResource.tempM.main, fileMapObj.loadEvent.groupEvent._combRequire.data);
                 tempM = baseResource.tempM;
                 //载入滞后函数
                 lagGather = tempM.lagGather;
@@ -877,20 +884,33 @@
             //写入临时模块
             baseResource.tempM = {
                 //模块的内容
-                main: {}
-                //names: []
+                main: moduleContent
+                    //names: []
             };
+            //设置临时模块内容
+            //R.setTempM(moduleContent);
+            //判断是否有模块名，添加入模块
+            baseResource.tempM.names = moduleName;
+        },
+        /*
+            设置临时变量的内容
+        */
+        setTempM: function (moduleContent, data) {
+            baseResource.tempM.main = {};
             //运行define函数会放入临时模块中
             switch (getType(moduleContent)) {
             case "function":
                 //产生一个伪全局兼容对象（用于兼容使用window为全局的插件或组建）
-                var fakeWindow = create(window);
+                //var fakeWindow = create(window);
                 //添加exports和module参数
                 var moduleObj = {
                     exports: {}
                 };
                 //若是函数则执行函数
-                var returnVal = moduleContent.call(fakeWindow, R.defindedRequire, moduleObj.exports, moduleObj);
+                //var returnVal = moduleContent.call(fakeWindow, R.defindedRequire, moduleObj.exports, moduleObj);
+                var returnVal = moduleContent.call({
+                    data: data
+                }, R.defindedRequire, moduleObj.exports, moduleObj);
                 if (returnVal) {
                     baseResource.tempM.main.exports = returnVal;
                 } else {
@@ -901,8 +921,6 @@
                 //其他内容则填充为模块内容
                 baseResource.tempM.main.exports = moduleContent;
             };
-            //判断是否有模块名，添加入模块
-            baseResource.tempM.names = moduleName;
         }
     };
     //代表define是browserRequire
