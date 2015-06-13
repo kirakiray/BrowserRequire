@@ -56,6 +56,16 @@
         transArgumtnts = function (args) {
             return Array.prototype.slice.call(args);
         },
+        /*
+            适用于数组的each方法
+            @param {array} arr 需要遍历的数组
+            @param {function} fun 遍历时的callback
+        */
+        each = function (arr, fun) {
+            for (var i = 0, len = arr.length; i < len; i++) {
+                fun(i, arr[i]);
+            };
+        },
         /**
             合并对象，like jQuery.extend
             @param {Object} arguments[0] 后面的对象要合并到该对象上
@@ -403,6 +413,27 @@
     */
     CombRequire.prototype.end = function () {
         this.ready = emptyFun;
+    };
+    /**
+        获取链和子链的文件数量；
+        并行链文件数量也会被算入；
+        只会计算当前链的和向下的链的文件数，父链不会被算入
+    */
+    CombRequire.prototype.getCount = function () {
+        var counts = 0;
+        (function (requireObj) {
+            var thisfun = arguments.callee;
+            //添加当前链数
+            counts += requireObj._args.length;
+
+            //递归并获取下一链数
+            each(requireObj._nexts, function (i, e) {
+                thisfun(e);
+            });
+        })(this);
+
+        //返回链数
+        return counts;
     };
 
     //PublicFunction
