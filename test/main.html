@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link href="brtest.css" type="text/css" rel="stylesheet" />
+    <script src="../src/br.js"></script>
+    <title>main test</title>
+</head>
+
+<body>
+
+</body>
+<script src="brtest.js"></script>
+<script>
+    require.config({
+        baseUrl: "../example/js",
+        paths: {
+            jq: 'jquery-1.9.1'
+        }
+    });
+
+    require('hybirdModule').ready = function(hy) {
+        brtest.test('hybirdModule test', function(con) {
+            con.equal('hy', hy.val, "hybird module wansui!!!!!!!!!!");
+            con.equal('hy.m4', hy.m4.val, "I am Module04");
+            con.equal('hy.m4.m1', hy.m4.m1, "I am Module01");
+            con.equal('hy.m4.m3', hy.m4.m3.val, "I am Module03");
+            con.equal('hy.m4.m2', hy.m4.m2.val, "I am Module02");
+            con.equal('m3', hy.m4.m2.m3, hy.m4.m3);
+        });
+        console.log(hy);
+    };
+</script>
+
+</html>

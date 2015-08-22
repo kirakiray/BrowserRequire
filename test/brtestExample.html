@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>test</title>
+    <link href="brtest.css" type="text/css" rel="stylesheet" />
+    <script src="json2.min.js"></script>
+</head>
+
+<body>
+</body>
+<script src="brtest.js"></script>
+<script>
+    var aa = {
+        kka: "kaka"
+    };
+    brtest.test('I am test one!!', function(con) {
+        //descript valueone valuetwo
+        con.equal('number1', 1, 1);
+        con.equal('number2', 2, 3);
+        con.equal('string1', 'asdasd', "asdasd");
+        con.equal('string2', 'asdasd', "asdbsd");
+        con.equal('object1', aa, aa);
+        con.equal('object2', aa, {
+            kka: "kakabbb"
+        });
+        con.equal('object3', aa, {
+            kka: "kaka"
+        });
+        con.more('array1', 1, [1, 2, 3]);
+        con.more('array2', 2, [1, 2, 3]);
+        con.more('array3', 3, [1, 2, 3]);
+        con.more('array4', 4, [1, 2, 3]);
+        con.more('moreObject1', aa, [{
+            kka: "dada"
+        }, {
+            kka: "sasa"
+        }, {
+            kka: "kake"
+        }]);
+    });
+    brtest.orderTest('orderOne', function(con) {
+        //设定顺序
+        con.set('first');
+        con.set('two');
+        con.set('three');
+
+        //触发
+        con.order('first');
+        con.order('three');
+        con.order('two');
+    });
+
+    brtest.orderTest('orderTwo', function(con) {
+        //必须按照设置的次序进行order触发
+
+        //orderId descript
+        //能够触发多次（大于1次）
+        con.set('first');
+
+        //只能触发一次可设置多个
+        con.one('second');
+
+        //属同一级别测试次序
+        con.set('three').one('three2');
+
+        //触发固定次数的事件
+        //此处设置为触发只能触发2次
+        //counts = 2
+        con.count('four', 2);
+
+        //此处设置为触发必须2次到4次之间
+        //2 < counts < 4
+        //con.count('four', 2, 4); 
+
+        //此处设置为触发必须小于4次
+        //counts < 4
+        //con.count('four', 0, 4); 
+
+        //此处设置必须大于2次
+        //counts > 2
+        //con.count('four', 2, true);
+    });
+
+    var testout = function(callback) {
+        setTimeout(callback, 500);
+    };
+
+    //进行触发order序列
+    testout(function() {
+        //进行first触发
+        brtest.order("orderTwo", 'first');
+        testout(function() {
+            //进行second触发
+            brtest.order("orderTwo", 'second');
+            //在触发一次就会失败，因为second的触发只能触发一次
+            brtest.order("orderTwo", 'second');
+            testout(function() {
+                //因为first在second前触发，再次触发会导致first错误
+                brtest.order("orderTwo", 'first');
+                //触发three，处于同一级的先后顺序触发无影响
+                brtest.order("orderOne", 'three');
+                brtest.order("orderTwo", 'three2', 'three2描述');
+                brtest.order("orderTwo", 'three', 'three描述1111！！！');
+                testout(function() {
+                    brtest.order("orderTwo", 'three', 'three描述2222！！！');
+                    brtest.order("orderTwo", 'three2', 'three2描述');
+                    //触发第1次four会警示状态(four必须触发2次数)
+                    brtest.order("orderTwo", 'four');
+                    testout(function() {
+                        //触发第2次four会改为安全状态(four触发2次数)
+                        brtest.order("orderTwo", 'four');
+                        testout(function() {
+                            //触发第3次four会改为错误状态(four只能触发2次数)
+                            brtest.order("orderTwo", 'four');
+                            brtest.order("orderTwo", 'four');
+                        });
+                    });
+                });
+            });
+        });
+    });
+</script>
+
+</html>

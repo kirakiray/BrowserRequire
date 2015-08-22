@@ -26,6 +26,7 @@
     var C_READY = 'ready',
         C_ERROR = 'error';
 
+    
     //Base Function
     //基础常用的方法
 
@@ -501,7 +502,8 @@
             //判断是否有临时模块
             if (baseResource.tempM) {
                 //执行模块定义
-                R.setTempM(baseResource.tempM.main, fileMapObj.loadEvent.groupEvent._combRequire.data);
+                //R.setTempM(baseResource.tempM.main, fileMapObj.loadEvent.groupEvent._combRequire.data);
+                R.setTempM(baseResource.tempM.main, fileMapObj);
                 tempM = baseResource.tempM;
                 //载入滞后函数
                 lagGather = tempM.lagGather;
@@ -926,7 +928,7 @@
         /*
             设置临时变量的内容
         */
-        setTempM: function (moduleContent, data) {
+        setTempM: function (moduleContent, fileMapObj) {
             baseResource.tempM.main = {};
             //运行define函数会放入临时模块中
             switch (getType(moduleContent)) {
@@ -940,7 +942,8 @@
                 //若是函数则执行函数
                 //var returnVal = moduleContent.call(fakeWindow, R.defindedRequire, moduleObj.exports, moduleObj);
                 var returnVal = moduleContent.call({
-                    data: data
+                    data: fileMapObj.loadEvent.groupEvent._combRequire.data,
+                    filename: fileMapObj.script.src
                 }, R.defindedRequire, moduleObj.exports, moduleObj);
                 if (returnVal) {
                     baseResource.tempM.main.exports = returnVal;

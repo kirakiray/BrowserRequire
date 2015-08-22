@@ -4,4 +4,5 @@ define(function (require, exports, module) {
 
     exports.val = '我是data-module';
     exports.postdata = data;
+    exports.filename = this.filename;
 });

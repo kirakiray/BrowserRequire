@@ -1,0 +1,235 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.br_test_all {
+    width: 100%;
+    height: 100%;
+    background: #f4f4f4;
+    font-family: 'Microsoft Yahei';
+}
+
+.br_test_title {
+    padding: 0 20px;
+    height: 40px;
+    font-size: 20px;
+    background: #3ec2da;
+    color: white;
+    line-height: 40px;
+    transition: padding ease .5s;
+}
+
+.br_test_container {
+    padding: 20px;
+    line-height: 1.6em;
+    transition: padding ease .5s;
+}
+
+@media screen and (max-width: 480px) {
+    /*大屏*/
+    .br_test_title {
+        padding: 0 10px;
+    }
+    .br_test_container {
+        padding: 10px;
+    }
+}
+
+.br_test_group {
+    padding-top: 10px;
+    background: white;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, .2);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.br_test_g_title {
+    padding: 0 6px;
+    height: 40px;
+    color: #475055;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.br_test_g_title:before {
+    display: inline-block;
+    float: left;
+    margin-right: 4px;
+    width: 6px;
+    height: 40px;
+    background: #92cc2e;
+    content: " ";
+}
+
+.br_test_g_title.ordertest:before {
+    background: #3ec2da;
+}
+
+.br_test_g_title_tips {
+    font-size: 14px;
+}
+
+.br_test_g_title_tips>div {
+    display: inline-block;
+    margin: 0 4px;
+}
+
+.br_test_g_title_tips .total_content:before {
+    content: "total: ";
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.br_test_g_title_tips .safe_content {
+    color: green;
+}
+
+.br_test_g_title_tips .safe_content:before {
+    color: #92cc2e;
+    content: "succeed: ";
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.br_test_g_title_tips .warn_content {
+    color: orange;
+}
+
+.br_test_g_title_tips .warn_content:before {
+    color: #f59a0b;
+    content: "warn: ";
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.br_test_g_title_tips .error_content {
+    color: red;
+}
+
+.br_test_g_title_tips .error_content:before {
+    color: #e74c3c;
+    content: "error: ";
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.br_test_g_content {
+    padding: 6px;
+    counter-reset: section;
+}
+
+.br_test_g_line {
+    counter-reset: subsection;
+    color: #888;
+    /*    transition: color ease .3s;*/
+}
+
+.br_test_g_line:before {
+    counter-increment: section;
+    content: counter(section) ". ";
+}
+
+.br_test_g_line.br_test_wait:before {
+    content: "wait--> ";
+    color: cornflowerblue;
+}
+
+.br_test_g_line.br_test_safe {
+    color: #7cae27;
+}
+
+.br_test_g_line.br_test_warn {
+    color: #f59a0b;
+}
+
+.br_test_g_line.br_test_error {
+    color: red;
+}
+
+._gline_incontent {
+    background: #2a211c;
+    color: #bdae89;
+    padding: 8px 8px 8px 21px;
+    overflow: auto;
+    opacity: 1;
+    transition: padding ease .3s, opacity ease .4s;
+}
+
+._gline_incontent_block {
+    margin-bottom: 15px;
+    line-height: 1.5em;
+}
+
+._gline_incontent_value {
+    word-wrap: break-word;
+}
+
+._gline_incontent_line._incontent_line_err ._gline_incontent_key {
+    color: firebrick;
+}
+
+._gline_incontent_line._incontent_line_err ._gline_incontent_value {
+    color: red;
+}
+
+._gline_incontent_line._incontent_line_safe ._gline_incontent_key {
+    color: green;
+}
+
+._gline_incontent_line._incontent_line_safe ._gline_incontent_value {
+    color: #50c72c;
+}
+
+._gline_incontent_line._incontent_line_warn ._gline_incontent_key {
+    color: darksalmon;
+}
+
+._gline_incontent_line._incontent_line_warn ._gline_incontent_value {
+    color: coral;
+}
+
+._gline_incontent_line._canclick {
+    color: #43a8ed;
+}
+
+._gline_incontent_line._canclick ._gline_incontent_value {
+    cursor: pointer;
+    text-decoration: underline;
+    color: bisque;
+}
+
+._gline_incontent_key {
+    width: 80px;
+    display: inline-block;
+}
+
+._gline_incontent_key:after {
+    content: " :";
+    color: #eee;
+}
+
+
+/*动画展开*/
+
+._gline_incontent._shou {
+    padding: 0px 8px 0px 21px;
+    height: 0px;
+    opacity: .5;
+}
+
+.more_clicker {
+    color: #39a8e0;
+    margin-left: 10px;
+    text-decoration: underline;
+    float: right;
+    cursor: pointer;
+}
+
+.more_clicker_shou {
+    color: #777;
+    margin-left: 10px;
+    text-decoration: underline;
+    float: right;
+    cursor: pointer;
+}

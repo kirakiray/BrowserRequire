@@ -31,33 +31,7 @@
         }
     });
 
-    /*var r1 = require('../1.2.0/data-module');
-    r1.data = '我是111111';
-    r1.ready = function (data) {
-        console.log(data);
-    };
-
-
-    var r2 = require('../1.2.0/data-module');
-    r2.data = '我是22222';
-    r2.ready = function (data) {
-        console.log(data);
-    };
-
-    var r3 = require('../1.2.0/data-module2');
-    r3.data = "我是33333";
-    r3.ready = function (data) {
-        console.log(data);
-        console.log(data.getdata());
-    };
-
-    var r4 = require('../1.2.0/data-module2');
-    r4.data = "我是44444";
-    r4.ready = function (data) {
-        console.log(data);
-        console.log(data.getdata());
-    };*/
-    require('../1.2.0/data-module', '../1.2.0/data-module2')
+    require('../v_1.2/data-module', '../v_1.2/data-module2')
         .sure(function (data1, data2) {
             console.log(data1);
             console.log(data2);
