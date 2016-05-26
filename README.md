@@ -1,8 +1,12 @@
 # BrowserRequire
 
+There are already update versions names [SugarRequire](https://github.com/kirakiray/SugarRequire)
+
 BrowserRequire is a dynamic script loader and a module loader for the web.
 
 English use guide : [click me!](https://github.com/kirakiray/BrowserRequire/wiki/English-use-guide)
+
+已经有2.0版本了请访问[点击进入](https://github.com/kirakiray/SugarRequire)，并更名SugarRequire。
 
 BrowserRequire是给浏览器使用的模块化框架，并且提供灵活加载js文件（非模块化文件）的功能。
 
